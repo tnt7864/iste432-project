@@ -14,6 +14,7 @@
     - [Output](#output)
   - [Technologies Used](#technologies-used)
   - [Design Patterns](#design-patterns)
+    - [Model-View-Controller](#model-view-controller)
     - [Factory Method](#factory-method)
   - [Timeline](#timeline)
 
@@ -111,6 +112,18 @@ As the developers, we are focusing on how MySQL executes statements within the r
       Provides reusable components following the Material Design guidelines
 
 ## Design Patterns
+
+### Model-View-Controller
+
+This application will use a client-server model, with most of the logic taking place on the server-side. The Model-View-Controller pattern will be used on the server side to organize the code and designate responsibilities between the different layers.
+
+The Model will be backed by data in the database, as well as the Spoonacular API. The data layer will sufficiently abstract the structures contained in the backend, and provide CRUD methods.
+
+The View and Controller will be connected to the API, as this is how the user (through the frontend) will interface with the application. The API will follow REST principles, using different HTTP methods semantically, and sending information in JSON format.
+
+The View will consist of the data returned by GET requests to the API.
+
+The Controller will consist of listeners to POST, PUT, DELETE, and other methods on the API.
 
 ### Factory Method
 
