@@ -3,6 +3,7 @@
 - [Development Book](#development-book)
   - [Team Members and Roles](#team-members-and-roles)
   - [Background and Project Description](#background-and-project-description)
+    - [Background](#background)
     - [Project Idea](#project-idea)
     - [Summary](#summary)
     - [Goals](#goals)
@@ -32,6 +33,16 @@
   Backend Developer / Database Developer
 
 ## Background and Project Description
+
+### Background
+
+Meal planning is often a dreaded task and it can be difficult to find time for it in our busy lives. It’s often easier and quicker to pick up a Burger King meal for dinner than to cook up a homemade meal. Another point is cooking is not the easiest task for everyone.
+
+There are many apps out there such as *Mealime*, *eMeals*, and *Yummly* that provide step-by-step instructions on making different meals. There are options to add food items for breakfast, lunch, and dinner for each day and calculate the nutritional value (calories, protein, fat, carbs).
+
+However, some meal planning apps make it hard to put everything you really eat on your meal plan, or the process is so complicated that it takes all the enjoyment out of your food. For instance, many recipe search engines fail to show relevant recipes because it relies on specific search keywords. If you search for "burrito no beans" you might see a result for "three-bean burrito" because of the "bean" keyword.
+
+Spoonacular is different from the competitors. You can collect your favorite recipes, find the right packaged foods for your lifestyle, save your usual restaurant meals, and automatically track your daily nutrition. Spoonacular finds healthy recipes by calculating the nutritional information. This means that recipes are not curated based on what we deem as "healthy" just because its gluten-free or vegan. On top of all that, the app is completely free with no charges to unlock "premium" features.
 
 ### Project Idea
 
