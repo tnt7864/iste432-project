@@ -136,12 +136,13 @@ module.exports.createDBConnection = config => {
 
 ## Timeline
 
-| Milestones                                | Meeting Start Date/Time   | Meeting End Date/Time   | Due Date      |
-| ----------------------------------------- | ------------------------- | ----------------------- | ------------- |
-| Milestone 01. Requirements                | Aug 20, 2020, 4:00 PM     | Aug 26, 2020, 6:00 PM   | Aug 31, 2020  |
-| Milestone 02. Design and Design Patterns  | Sept 18, 2020, 12:20 PM   | Sept 18, 2020           | Sept 18, 2020 |
-| Milestone 03. Layering                    |                           |                         |               |
-| Milestone 04. Exception Handling          |                           |                         |               |
-| Milestone 05. Performance and Refactoring |                           |                         |               |
-| Milestone 06. Testing                     |                           |                         |               |
-| Milestone 07. Deploying, Packaging        |                           |                         |               |
+| Milestones                                | Meeting Start Date/Time   | Meeting End Date/Time   | Due Date                  |
+| ----------------------------------------- | ------------------------- | ----------------------- | ------------------------- |
+| Milestone 01. Requirements                | Aug 20, 2020, 4 PM        | Aug 26, 2020, 6 PM      | Aug 31, 2020, 11:59 PM    |
+| Milestone 02. Design and Design Patterns  | Sept 18, 2020, 4 PM       | Sept 18, 2020, 6 PM     | Sept 18, 2020, 11:59 PM   |
+| Milestone 03. Layering                    | Sept 23, 2020, 4 PM       | Sept 23, 2020, 6 PM     | Sept 25, 2020, 11:59 PM   |
+| Milestone 04. Exception Handling          | Oct 7, 2020, 4 PM         | Oct 7, 2020, 6 PM       | Oct 9, 2020, 11:59 PM     |
+| Milestone 05. Performance and Refactoring | Oct 21, 2020, 4 PM        | Oct 21, 2020, 6 PM      | Oct 23, 2020, 11:59 PM    |
+| Milestone 06. Testing                     | Nov 6, 2020, 4 PM         | Nov 6, 2020, 6 PM       | Nov 9, 2020, 11:59 PM     |
+| Milestone 07. Deploying, Packaging        | Nov 11, 2020, 4 PM        | Nov 11, 2020, 6 PM      | Nov 13, 2020, 11:59 PM    |
+| Finalized Code                            | Nov 18, 2020, 4 PM        | Nov 18, 2020, 6 PM      | Nov 20, 2020, 6 PM        |
