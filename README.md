@@ -136,12 +136,12 @@ module.exports.createDBConnection = config => {
 
 ## Timeline
 
-| Milestones                                | Meeting Start Date | Meeting End Date | Start Date Due | End Date Due  |
-| ----------------------------------------- | ------------------ | ---------------- | -------------- | ------------- |
-| Milestone 01. Requirements                | Aug 20, 2020       | Aug 31, 2020     | Aug 19, 2020   | Aug 31, 2020  |
-| Milestone 02. Design and Design Patterns  | Sept 18, 2020      | Sept 18, 2020    | Sept 18, 2020  | Sept 18, 2020 |
-| Milestone 03. Layering                    |                    |                  |                | Sept 25, 2020 |
-| Milestone 04. Exception Handling          |                    |                  |                | Oct 9, 2020   |
-| Milestone 05. Performance and Refactoring |                    |                  |                | Oct 23, 2020  |
-| Milestone 06. Testing                     |                    |                  |                | Nov 6, 2020   |
-| Milestone 07. Deploying, Packaging        |                    |                  |                | Nov 13, 2020  |
+| Milestones                                | Meeting Start Date/Time   | Meeting End Date/Time   | Due Date      |
+| ----------------------------------------- | ------------------------- | ----------------------- | ------------- |
+| Milestone 01. Requirements                | Aug 20, 2020, 4:00 PM     | Aug 26, 2020, 6:00 PM   | Aug 31, 2020  |
+| Milestone 02. Design and Design Patterns  | Sept 18, 2020, 12:20 PM   | Sept 18, 2020           | Sept 18, 2020 |
+| Milestone 03. Layering                    |                           |                         |               |
+| Milestone 04. Exception Handling          |                           |                         |               |
+| Milestone 05. Performance and Refactoring |                           |                         |               |
+| Milestone 06. Testing                     |                           |                         |               |
+| Milestone 07. Deploying, Packaging        |                           |                         |               |
