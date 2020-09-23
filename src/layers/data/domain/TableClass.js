@@ -16,11 +16,12 @@ module.exports.TableClass = class TableClass{
 		this.table = table;
 		this.primaryKey = Array.isArray(primaryKey) ? primaryKey : [primaryKey]; //make it an array if it's not already
 		this.properties = properties;
+		this.allProps = [...this.primaryKey, ...this.properties];
 	}
 	
 	/**
 	 * Comma-separated list of properties including the primary key
-	 * Can be used in a SELECT statement
+	 * Can be used in a SELECT or INSERT statement
 	 * @returns {string}
 	 */
 	selectProps(){
@@ -39,18 +40,32 @@ module.exports.TableClass = class TableClass{
 	/**
 	 * Constructs a SET clause setting all properties of this table
 	 * e.g. for properties ["prop1", "prop2"] it returns "prop1 = ?, prop2 = ?"
+	 * @param {string[]?} props The properties to use
 	 * @returns {string}
 	 */
-	setProperties(){
+	setProperties(props = this.properties){
 		return this.properties.map(n => n + " = ?").join(", ");
+	}
+	
+	/**
+	 * Inserts an object into the table
+	 * @param {any} obj Data to insert into the table
+	 * @returns {Promise<number>} Number of affected rows
+	 */
+	async create(obj){
+		const sql = "INSERT INTO " + this.table + "(" + this.selectProps() + ") VALUES (" + this.allProps.map(n => "?").join(", ") + ")";
+		
+		const params = this.allProps.map(n => obj[n]);
+		
+		return await this.db.run(sql, params);
 	}
 	
 	/**
 	 * Gets an item by its primary key(s)
 	 * @param {any|any[]} id Primary key(s) of the desired item
-	 * @returns {any}
+	 * @returns {Promise<any>}
 	 */
-	async get(id){
+	async read(id){
 		const sql = "SELECT " + this.selectProps() + " FROM " + this.table + " WHERE " + this.wherePrimaryKey();
 		
 		if(!Array.isArray(id)){
@@ -64,18 +79,34 @@ module.exports.TableClass = class TableClass{
 	/**
 	 * Updates an object from a table with new values based on the primary key(s)
 	 * @param {any} obj The object to update
-	 * @returns {number} The number of modified rows in the table
+	 * @returns {Promise<number>} The number of modified rows in the table
 	 */
-	update(obj){
+	async update(obj){
 		//get the primary key properties
 		const ids = this.primaryKey.map(n => obj[n]);
 		
 		//get the other properties that will be updated
-		const others = this.properties.filter(n => n in obj).map(n => obj[n]);
+		const props = this.properties.filter(n => n in obj);
+		const others = others.map(n => obj[n]);
 		
-		const sql = "UPDATE " + this.table + " SET " + this.setProperties() + " WHERE " + this.wherePrimaryKey();
+		const sql = "UPDATE " + this.table + " SET " + this.setProperties(props) + " WHERE " + this.wherePrimaryKey();
 		
-		const result = await this.db.run(sql, [...others, ...ids]);
-		return result;
+		return await this.db.run(sql, [...others, ...ids]);
+	}
+	
+	/**
+	 * Deletes an entry from the table
+	 * @param {any[]|any} id The primary key array or object to delete from the table
+	 * @returns {Promise<number>} Number of modified rows
+	 */
+	async delete(id){
+		//if the id is the object to delete, turn it into the primary key array
+		if(typeof id === 'object'){
+			id = this.primaryKey.map(n => id[n]);
+		}
+		
+		const sql = "DELETE FROM " + this.table + " WHERE " + this.wherePrimaryKey();
+		
+		return await this.db.run(sql, id);
 	}
 }
