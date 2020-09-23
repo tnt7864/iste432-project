@@ -1,5 +1,4 @@
-# Development Book
-
+- [Running](#running)
 - [Development Book](#development-book)
   - [Team Members and Roles](#team-members-and-roles)
   - [Background and Project Description](#background-and-project-description)
@@ -18,6 +17,14 @@
     - [Model-View-Controller](#model-view-controller)
     - [Factory Method](#factory-method)
   - [Timeline](#timeline)
+
+# Running
+
+- Make sure [Node.js](https://nodejs.org/) is installed
+- Install dependencies by running `npm install`
+- Run with `npm start`
+
+# Development Book
 
 ## Team Members and Roles
 
