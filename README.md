@@ -1,4 +1,6 @@
 - [Running](#running)
+  - [Development](#development)
+  - [Production](#production)
 - [Development Book](#development-book)
   - [Team Members and Roles](#team-members-and-roles)
   - [Background and Project Description](#background-and-project-description)
@@ -22,7 +24,19 @@
 
 - Make sure [Node.js](https://nodejs.org/) is installed
 - Install dependencies by running `npm install`
-- Run with `npm start`
+
+## Development
+
+- Run the server as well as the client development server with `npm run dev`
+- A development server will start at [http://localhost:3000/](http://localhost:3000/)
+
+Note: changing the server port from the default will break the proxy in the client's development server.
+
+## Production
+
+- Compile frontend code with `npm run build`
+- Run the server with `npm start`
+- By default, a server is started at [http://localhost:8080/](http://localhost:8080/)
 
 # Development Book
 
