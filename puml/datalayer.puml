@@ -1,0 +1,30 @@
+@startuml datalayer
+
+skinparam shadowing false
+skinparam class{
+	BackgroundColor white
+}
+hide empty members
+hide circles
+
+title Data Layer Classes
+
+interface BaseDriver {
+	query(sql: string, params: any[]): Promise<any[]>
+	run(sql: string, params: any[]): Promise<number>
+	close(): Promise<void>
+}
+
+class MySQLDriver implements BaseDriver {}
+class SQLiteDriver implements BaseDriver {}
+
+class TableClass {
+	create(obj: any): Promise<number>
+	read(id: any|any[]): Promise<any>
+	update(obj: any): Promise<number>
+	delete(obj: any): Promsie<number>
+}
+
+TableClass -> BaseDriver
+
+@enduml
