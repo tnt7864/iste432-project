@@ -18,6 +18,14 @@
   - [Design Patterns](#design-patterns)
     - [Model-View-Controller](#model-view-controller)
     - [Factory Method](#factory-method)
+  - [Layering](#layering)
+    - [Presentation Layer](#presentation-layer)
+      - [User Information Class](#user-information-class)
+      - [View](#view)
+    - [Business Layer](#business-layer)
+      - [Controllers](#controllers)
+    - [Data Layer](#data-layer)
+      - [Database Schema](#database-schema)
   - [Timeline](#timeline)
 
 # Running
@@ -178,6 +186,47 @@ module.exports.createDBConnection = config => {
   }
 };
 ```
+
+## Layering
+
+### Presentation Layer
+
+The presentation layer will allow the audience/user to interact with the application depending on their needs for gathering information about new recipes and/or ingredients. They should have access to only view the output data from the server in a way that won’t expose critical data to them. The inner layers must be secured enough so we do not have any critical data leaked to the presentation layer.
+
+#### User Information Class
+
+Contains information about the User that registers on the site. Fields include first name, email address, username, password.
+
+#### View
+
+Consists of the data returned by GET requests to the API.
+Listed below are some functions available in the Spoonacular API.
+
+Get Recipe Information by calling a recipe id.  
+GET https://api.spoonacular.com/recipes/{id}/information  
+GET https://api.spoonacular.com/recipes/random  
+GET https://api.spoonacular.com/food/ingredients/{id}/information  
+GET https://api.spoonacular.com/recipes/{id}/summary  
+GET https://api.spoonacular.com/food/products/search  
+GET https://api.spoonacular.com/recipes/{id}/information
+
+### Business Layer
+
+The business layer will be in communication with both the presentation layer and the data layer. Information from the presentation layer will be sanitized to make sure the users haven’t injected anything that may harm the program before passing the request to the data layer. Upon receiving the results from the query, the business layer will make sure the information is readable for the presentation layer then send the information to the layer.
+
+#### Controllers
+
+Will be the listeners that will activate once the user decides to create (POST), update (PUT), or delete (DELETE) any recipes or ingredients. For example, if they have recent searches or favorite recipes/ingredients saved they can modify them within the database.
+
+### Data Layer
+
+The data layer will be in charge of interfacing with the database and abstracting database operations from the rest of the program. It will use polymorphism to connect to multiple database management systems, and will abstract the CRUD operations as methods.
+
+![Data layer classes](img/datalayer.png)
+
+#### Database Schema
+
+![Database schema](img/Spoonacular_Schema.png)
 
 ## Timeline
 
