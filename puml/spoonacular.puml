@@ -1,0 +1,50 @@
+@startuml
+entity Recipes{
+RecipeID
+---
+{abstract} IngredientID
+{abstract} ProductID
+{abstract} MenuItemID
+{abstract} MealPlanningID
+{abstract} UserID
+name
+desc
+}
+entity Users {
+    UserID
+    ---
+    name
+    email
+    username
+    password
+}
+entity Ingredients {
+    IngredientID
+    ---
+    name
+    desc
+}
+entity Products {
+    ProductID
+    ---
+    name
+    desc
+}
+entity MenuItems {
+    MenuItemID
+    ---
+    name
+    desc
+}
+entity MealPlanning {
+    MealPlanningID
+    ---
+    name
+    desc
+}
+Recipes }--{ Users
+Recipes }--{ Ingredients
+Recipes }--{ Products
+Recipes }--{ MenuItems
+Recipes }--{ MealPlanning
+@enduml
