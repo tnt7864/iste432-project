@@ -1,4 +1,5 @@
 const express = require("express");
+const { applyServeStatic } = require("./serve-static");
 
 /**
  * Starts up the server
@@ -9,6 +10,8 @@ module.exports.start = (config, data) => {
 	const port = config.port || 8080;
 	
 	const app = express();
+	
+	applyServeStatic(app, config);
 	
 	app.listen(port, () =>
 		console.log("Server listening on port", port)
