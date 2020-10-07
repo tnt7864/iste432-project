@@ -229,6 +229,7 @@ The data layer will be in charge of interfacing with the database and abstractin
 ![Database schema](img/Spoonacular_Schema.png)
 
 ## Exception Handling
+
 Javascript is built on an asynchronous event-based model, which lets it run on a single thread while executing multiple things at a time
 to do this, it's split up into synchronous "blocks" of code, each of which might schedule something to be executed in the future
 each of these blocks should take next to no time to execute
@@ -243,7 +244,7 @@ try{
     console.error("Error", e);
 }
 ```
-On the data layer, i've been using Promises, a neat thing for asynchronous code execution, that have exception propagation features
+On the data layer, we've been using Promises, a neat thing for asynchronous code execution, that have exception propagation features
 all the methods on the data layer return Promises, and you can call the .catch method on them to handle errors whenever they arise
 on the business layer, Express.js surrounds your callbacks in a try/catch so it can detect synchronous errors and return a 500 code indicating an error occurred in situations like this:
 ```js
