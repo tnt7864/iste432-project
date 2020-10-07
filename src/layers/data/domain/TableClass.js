@@ -53,11 +53,15 @@ module.exports.TableClass = class TableClass{
 	 * @returns {Promise<number>} Number of affected rows
 	 */
 	async create(obj){
-		const sql = "INSERT INTO " + this.table + "(" + this.selectProps() + ") VALUES (" + this.allProps.map(n => "?").join(", ") + ")";
-		
-		const params = this.allProps.map(n => obj[n]);
-		
-		return await this.db.run(sql, params);
+		try{
+			const sql = "INSERT INTO " + this.table + "(" + this.selectProps() + ") VALUES (" + this.allProps.map(n => "?").join(", ") + ")";
+			
+			const params = this.allProps.map(n => obj[n]);
+			
+			return await this.db.run(sql, params);
+		}catch(err){
+			throw new Error("Failed to create row in table " + this.table);
+		}
 	}
 	
 	/**
@@ -66,14 +70,22 @@ module.exports.TableClass = class TableClass{
 	 * @returns {Promise<any>}
 	 */
 	async read(id){
-		const sql = "SELECT " + this.selectProps() + " FROM " + this.table + " WHERE " + this.wherePrimaryKey();
-		
-		if(!Array.isArray(id)){
-			id = [id];
+		try{
+			const sql = "SELECT " + this.selectProps() + " FROM " + this.table + " WHERE " + this.wherePrimaryKey();
+			
+			if(!Array.isArray(id)){
+				id = [id];
+			}
+			
+			const result = await this.db.query(sql, id);
+			if(!result.length){
+				return;
+			}
+			
+			return result[0];
+		}catch(err){
+			throw new Error("Failed to retrieve row from table " + this.table);
 		}
-		
-		const result = await this.db.query(sql, id);
-		return result[0];
 	}
 	
 	/**
@@ -82,16 +94,20 @@ module.exports.TableClass = class TableClass{
 	 * @returns {Promise<number>} The number of modified rows in the table
 	 */
 	async update(obj){
-		//get the primary key properties
-		const ids = this.primaryKey.map(n => obj[n]);
-		
-		//get the other properties that will be updated
-		const props = this.properties.filter(n => n in obj);
-		const others = others.map(n => obj[n]);
-		
-		const sql = "UPDATE " + this.table + " SET " + this.setProperties(props) + " WHERE " + this.wherePrimaryKey();
-		
-		return await this.db.run(sql, [...others, ...ids]);
+		try{
+			//get the primary key properties
+			const ids = this.primaryKey.map(n => obj[n]);
+			
+			//get the other properties that will be updated
+			const props = this.properties.filter(n => n in obj);
+			const others = others.map(n => obj[n]);
+			
+			const sql = "UPDATE " + this.table + " SET " + this.setProperties(props) + " WHERE " + this.wherePrimaryKey();
+			
+			return await this.db.run(sql, [...others, ...ids]);
+		}catch(err){
+			throw new Error("Failed to update row in table " + this.table);
+		}
 	}
 	
 	/**
@@ -100,13 +116,17 @@ module.exports.TableClass = class TableClass{
 	 * @returns {Promise<number>} Number of modified rows
 	 */
 	async delete(id){
-		//if the id is the object to delete, turn it into the primary key array
-		if(typeof id === 'object'){
-			id = this.primaryKey.map(n => id[n]);
+		try{
+			//if the id is the object to delete, turn it into the primary key array
+			if(typeof id === 'object'){
+				id = this.primaryKey.map(n => id[n]);
+			}
+			
+			const sql = "DELETE FROM " + this.table + " WHERE " + this.wherePrimaryKey();
+			
+			return await this.db.run(sql, id);
+		}catch(err){
+			throw new Error("Failed to delete row from table " + this.table);
 		}
-		
-		const sql = "DELETE FROM " + this.table + " WHERE " + this.wherePrimaryKey();
-		
-		return await this.db.run(sql, id);
 	}
 }

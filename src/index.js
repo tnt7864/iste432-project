@@ -7,6 +7,7 @@ const config = (() => {
 	}
 })();
 
+const { setupDataLayer } = require("./layers/data");
 const { start } = require("./layers/business");
 
-start(config);
+start(config, setupDataLayer(config));
