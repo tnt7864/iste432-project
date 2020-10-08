@@ -261,6 +261,17 @@ app.get("/", (req, res, next) => {
         .catch(next)
 })
 ```
+In this example we have written alert as adddlert to deliberately produce an error:
+<p id="demo"></p>
+
+<script>
+    try {
+      adddlert("Welcome guest!");
+    }
+    catch(err) {
+      document.getElementById("demo").innerHTML = err.message;
+    }
+</script>
 
 ## Timeline
 
