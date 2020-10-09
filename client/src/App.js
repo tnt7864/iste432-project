@@ -1,15 +1,10 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import { store } from './redux';
 import ErrorDialog from './components/ErrorDialog';
 import { setError } from './redux/actions/error';
-
-const mapStateToProps = (state, props) => ({
-  ...props,
-  error: state.error
-})
 
 const App = () => {
   return (
