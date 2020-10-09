@@ -26,6 +26,10 @@
       - [Controllers](#controllers)
     - [Data Layer](#data-layer)
       - [Database Schema](#database-schema)
+  - [Exception Handling](#exception-handling)
+    - [Data layer](#data-layer-1)
+    - [Business layer](#business-layer-1)
+    - [Presentation layer](#presentation-layer-1)
   - [Timeline](#timeline)
 
 # Running
@@ -230,49 +234,67 @@ The data layer will be in charge of interfacing with the database and abstractin
 
 ## Exception Handling
 
-Javascript is built on an asynchronous event-based model, which lets it run on a single thread while executing multiple things at a time
-to do this, it's split up into synchronous "blocks" of code, each of which might schedule something to be executed in the future
-each of these blocks should take next to no time to execute
-a constraint of this is try/catch blocks only catch errors happening on the same "block" of code
-for example, this error won't be caught, because the error occurs in a function scheduled to run after the try/catch block is done executing:
+### Data layer
+
+Errors caught in the data layer are rethrown with friendlier messages obfuscating the inner workings of the layer.
+Every operation in the data layer is a Promise with the possibility of throwing an error, so to catch them,
+the business layer will need to either use `try`/`catch` inside an `async` function, or call the `.catch` method
+on the returned Promises.
+
+Example code handling exceptions thrown by a read operation:
 ```js
-try{
-    setTimeout(function(){
-        throw new Error();
-    }, 1000);
-}catch(e){
-    console.error("Error", e);
+const getUser = (id, callback) => {
+	data.Users.read(id)
+		.then(user => callback(undefined, user))
+		.catch(error => callback(error))
 }
 ```
-On the data layer, we've been using Promises, a neat thing for asynchronous code execution, that have exception propagation features
-all the methods on the data layer return Promises, and you can call the .catch method on them to handle errors whenever they arise
-on the business layer, Express.js surrounds your callbacks in a try/catch so it can detect synchronous errors and return a 500 code indicating an error occurred in situations like this:
-```js
-app.get("/", (req, res) => {
-    throw new Error();
-})
-```
-However, when working with Promises, exception handling doesn't occur within the same code block
-so you need to do something like this:
-```js
-app.get("/", (req, res, next) => {
-    db.getItem() //or whatever the function is
-        .then(result => res.send(result))
-        .catch(next)
-})
-```
-In this example we have written alert as adddlert to deliberately produce an error:
-```js
-<p id="demo"></p>
 
-<script>
-    try {
-      adddlert("Welcome guest!");
-    }
-    catch(err) {
-      document.getElementById("demo").innerHTML = err.message;
-    }
-</script>
+### Business layer
+
+Errors are passed to the presentation layer through HTTP status codes and the return text. This is handled through Express.js.
+
+Express automatically wraps synchronous functions in `try`/`catch` blocks, so in this kind of function, error handling does not need to be done manually.
+However, in `async` functions, errors need to be caught manually and passed to `next` in order to be handled by Express.
+
+Example code handling an error in the data layer, passing it to Express to return as a response with code 502:
+```js
+app.get("/user/:id", (req, res, next) => {
+	getUser(req.params.id, (err, user) => {
+		if(err){
+			next(new Error("Error retrieving user data"));
+		}else{
+			res.send(user);
+		}
+	})
+})
+```
+
+### Presentation layer
+
+Errors will be caught and presented to the user in dialogs with user-friendly messages.
+Redux is used for triggering and dismissing the error dialogs, to reduce edge cases, centralize logic, and decouple the logic of throwing errors from the component that displays them.
+
+Example code handling an error in a `fetch` request, triggering the error dialog:
+```js
+const User = ({ id }) => {
+	const [data, setData] = useState(null);
+	const dispatch = useDispatch(); //get the dispatch function for the store in the parent <Provider> component
+	
+	useEffect(async () => {
+		try{
+			const response = await fetch("/api/user/" + id);
+			if(!response.ok){
+				throw new Error("Unable to retrieve user");
+			}
+			
+			const data = await response.json();
+			setData(data);
+		}catch(err){
+			dispatch(setError(err.message));
+		}
+	}, [])
+}
 ```
 
 ## Timeline
