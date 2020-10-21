@@ -29,6 +29,25 @@ module.exports.TableClass = class TableClass{
 	}
 	
 	/**
+	 * Constructs a WHERE clause and associated parameter values for an object
+	 * e.g. for input { a: 1, b: 2 } the result is ["a = ? AND b = ?", [1, 2]]
+	 * @param {any} obj Keys and values to use
+	 * @returns {[string, any[]]}
+	 */
+	whereFor(obj){
+		let query = [];
+		let values = [];
+		for(let i in obj){
+			query.push(i + " = ?");
+			values.push(obj[i]);
+		}
+		return [
+			query.join(" AND "),
+			values
+		];
+	}
+	
+	/**
 	 * Constructs a WHERE clause matching all primary key(s) of this table
 	 * e.g. for primary key ["id1", "id2"] it returns "id1 = ? AND id2 = ?"
 	 * @returns {string}
@@ -85,6 +104,23 @@ module.exports.TableClass = class TableClass{
 			return result[0];
 		}catch(err){
 			throw new Error("Failed to retrieve row from table " + this.table);
+		}
+	}
+	
+	/**
+	 * Gets an array of items by arbitrary field(s)
+	 * @param {any} obj Field names and values to look for
+	 * @returns {Promise<any[]>}
+	 */
+	async readWhere(obj){
+		try{
+			const [where, params] = this.whereFor(obj);
+			const sql = "SELECT " + this.selectProps() + " FROM " + this.table + " WHERE " + where;
+			
+			const result = await this.db.query(sql, params);
+			return result;
+		}catch(err){
+			throw new Error("Failed to retrieve rows from table " + this.table);
 		}
 	}
 	
