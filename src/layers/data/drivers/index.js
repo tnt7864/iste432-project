@@ -1,4 +1,5 @@
 const { MySQLDriver } = require("./MySQLDriver");
+const { PSQLDriver } = require("./PSQLDriver");
 const { SQLiteDriver } = require("./SQLiteDriver");
 
 /**
@@ -9,6 +10,7 @@ const { SQLiteDriver } = require("./SQLiteDriver");
 const databases = {
 	mysql: MySQLDriver,
 	sqlite: SQLiteDriver,
+	postgres: PSQLDriver,
 };
 
 /**
