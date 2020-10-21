@@ -297,6 +297,8 @@ const User = ({ id }) => {
 }
 ```
 
+## Performmance and Fefactoring
+
 ## Timeline
 
 | Milestones                                | Meeting Start Date/Time   | Meeting End Date/Time   | Due Date                  |
