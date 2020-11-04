@@ -12,7 +12,7 @@ module.exports.SQLiteDriver = class SQLiteDriver{
 		this.db = new sqlite.Database(filename);
 	}
 	
-	query(statement, params){
+	query(statement, params = []){
 		return new Promise((res, rej) => {
 			this.db.all(statement, params, (err, obj) => {
 				err ? rej(err) : res(obj);
@@ -20,7 +20,7 @@ module.exports.SQLiteDriver = class SQLiteDriver{
 		});
 	}
 	
-	run(statement, params){
+	run(statement, params = []){
 		return new Promise((res, rej) => {
 			this.db.run(statement, params, function(err){ //can't be an arrow function, `this` contains important information
 				err ? rej(err) : res(this.changes);

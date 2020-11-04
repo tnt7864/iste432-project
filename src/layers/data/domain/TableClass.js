@@ -63,7 +63,7 @@ module.exports.TableClass = class TableClass{
 	 * @returns {string}
 	 */
 	setProperties(props = this.properties){
-		return this.properties.map(n => n + " = ?").join(", ");
+		return props.map(n => n + " = ?").join(", ");
 	}
 	
 	/**
@@ -136,11 +136,11 @@ module.exports.TableClass = class TableClass{
 			
 			//get the other properties that will be updated
 			const props = this.properties.filter(n => n in obj);
-			const others = others.map(n => obj[n]);
+			const vals = props.map(n => obj[n]);
 			
 			const sql = "UPDATE " + this.table + " SET " + this.setProperties(props) + " WHERE " + this.wherePrimaryKey();
 			
-			return await this.db.run(sql, [...others, ...ids]);
+			return await this.db.run(sql, [...vals, ...ids]);
 		}catch(err){
 			throw new Error("Failed to update row in table " + this.table);
 		}

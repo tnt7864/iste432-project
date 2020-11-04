@@ -21,7 +21,7 @@ module.exports.BaseDriver = class BaseDriver{
 	 * Makes a non-SELECT statement
 	 * @param {string} statement SQL statement to run
 	 * @param {any[]} params Array of parameters
-	 * @returns {Promise<number>} Modified rows
+	 * @returns {Promise<[number, number]>} Modified rows, inserted ID
 	 */
 	async run(statement, params){}
 	
