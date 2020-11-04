@@ -109,13 +109,13 @@ module.exports.TableClass = class TableClass{
 	
 	/**
 	 * Gets an array of items by arbitrary field(s)
-	 * @param {any} obj Field names and values to look for
+	 * @param {any?} obj Field names and values to look for
 	 * @returns {Promise<any[]>}
 	 */
 	async readWhere(obj){
 		try{
-			const [where, params] = this.whereFor(obj);
-			const sql = "SELECT " + this.selectProps() + " FROM " + this.table + " WHERE " + where;
+			const [where, params] = this.whereFor(obj || {});
+			const sql = "SELECT " + this.selectProps() + " FROM " + this.table + (where.length ? " WHERE " + where : "");
 			
 			const result = await this.db.query(sql, params);
 			return result;
