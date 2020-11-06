@@ -1,5 +1,6 @@
 const express = require("express");
 const { applyServeStatic } = require("./serve-static");
+const User = require("./User");
 
 /**
  * Starts up the server
@@ -12,6 +13,8 @@ module.exports.start = (config, data) => {
 	const app = express();
 	
 	applyServeStatic(app, config);
+	
+	app.use('/api/user', User(data));
 	
 	app.listen(port, () =>
 		console.log("Server listening on port", port)

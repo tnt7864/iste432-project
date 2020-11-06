@@ -9,6 +9,10 @@ const handleRoute = handler => async (req, res, next) => {
 		
 		res.json(result);
 	}catch(e){
+		if(typeof e === 'number'){
+			res.status(e);
+			return res.send();
+		}
 		next(e);
 	}
 }

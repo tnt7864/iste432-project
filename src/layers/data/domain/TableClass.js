@@ -125,6 +125,14 @@ module.exports.TableClass = class TableClass{
 	}
 	
 	/**
+	 * Lists all objects in this table
+	 * @returns {Promise<any[]>}
+	 */
+	async list(){
+		return this.readWhere();
+	}
+	
+	/**
 	 * Updates an object from a table with new values based on the primary key(s)
 	 * @param {any} obj The object to update
 	 * @returns {Promise<number>} The number of modified rows in the table
