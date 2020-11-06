@@ -2,7 +2,7 @@ const { rest } = require("./rest");
 
 module.exports = dl => rest({
 	async get(id){
-		const result = dl.Users.read(id);
+		const result = await dl.Users.read(id);
 		if(!result){
 			throw 404;
 		}
