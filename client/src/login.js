@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button, FormGroup, FormControl, ControlLabel } from "react-bootstrap";
-import "login.css";
+import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import "./login.css";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ export default function Login() {
     <div className="Login">
       <form onSubmit={handleSubmit}>
         <FormGroup controlId="email" bsSize="large">
-          <ControlLabel>Email</ControlLabel>
+          <FormLabel>Email</FormLabel>
           <FormControl
             autoFocus
             type="email"
@@ -27,7 +27,7 @@ export default function Login() {
           />
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <ControlLabel>Password</ControlLabel>
+          <FormLabel>Password</FormLabel>
           <FormControl
             value={password}
             onChange={e => setPassword(e.target.value)}
