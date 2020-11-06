@@ -11,10 +11,13 @@ module.exports.start = (config, data) => {
 	const port = config.port || 8080;
 	
 	const app = express();
+	app.use(express.cookieParser());
 	
 	applyServeStatic(app, config);
 	
-	app.use('/api/user', User(data));
+	const tokens = {};
+	const { route, auth } = User(data, tokens);
+	app.use('/api/user', route);
 	
 	app.listen(port, () =>
 		console.log("Server listening on port", port)

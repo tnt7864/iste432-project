@@ -27,18 +27,22 @@ const handleRoute = handler => async (req, res, next) => {
  * @property {(id: number) => any} delete Called on a DELETE request to /:id, deletes an item
  * @returns {express.Router} The resulting router
  */
-module.exports.rest = ({ get, list, post, put, delete: deleteMethod }) => {
+module.exports.rest = ({ get, list, post, put, delete: deleteMethod, ...rest }) => {
 	const router = express.Router();
 	
-	router.get("/", handleRoute(() => list()));
+	router.get("/", handleRoute((req, res) => list(req, res)));
 	
-	router.get("/:id", handleRoute(req => get(req.params.id)));
+	router.get("/:id", handleRoute((req, res) => get(req.params.id, req, res)));
 	
-	router.post("/", express.json(), handleRoute(req => post(req.body)));
+	router.post("/", express.json(), handleRoute((req, res) => post(req.body, req, res)));
 	
-	router.put("/:id", express.json(), handleRoute(req => put(req.params.id, req.body)));
+	router.put("/:id", express.json(), handleRoute((req, res) => put(req.params.id, req.body, req, res)));
 	
-	router.delete("/:id", handleRoute(req => deleteMethod(req.params.id)));
+	router.delete("/:id", handleRoute((req, res) => deleteMethod(req.params.id, req, res)));
+	
+	for(let i in rest){
+		router.get(i, handleRoute(rest[i]));
+	}
 	
 	return router;
 }

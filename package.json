@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/tnt7864/iste432-project#readme",
   "dependencies": {
+    "argon2": "^0.27.0",
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "pg": "^8.4.1",
