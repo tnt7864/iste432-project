@@ -1,3 +1,4 @@
+const cookieParser = require("cookie-parser");
 const express = require("express");
 const { applyServeStatic } = require("./serve-static");
 const User = require("./User");
@@ -11,7 +12,7 @@ module.exports.start = (config, data) => {
 	const port = config.port || 8080;
 	
 	const app = express();
-	app.use(express.cookieParser());
+	app.use(cookieParser());
 	
 	applyServeStatic(app, config);
 	
