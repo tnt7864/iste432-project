@@ -302,6 +302,8 @@ const User = ({ id }) => {
 
 Several methods were taken into consideration to improve performance. First, indices were created on all tables in order to improve `SELECT` statements based on the `name` columns. This can be observed in the [DDL files](src/layers/data/ddl). Second, connection pooling is used wherever possible in the data layer in order to remove the overhead of making a new connection with the database. This can be observed in the constructors of the [MySQL](src/layers/data/drivers/MySQLDriver.js) and [Postgres](src/layers/data/drivers/PSQLDriver.js) drivers.
 
+## Testing
+
 ## Timeline
 
 | Milestones                                | Meeting Start Date/Time   | Meeting End Date/Time   | Due Date                  |
