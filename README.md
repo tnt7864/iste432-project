@@ -305,7 +305,7 @@ Several methods were taken into consideration to improve performance. First, ind
 
 ## Testing
 
-There are many different testing methods to use for our project that could have been utilized. AVA is a test runner that we discovered that would be useful to test with our Javascript files which can be run with `npm test`. It contains a concise API with detailed error output. These test are minimal and fast, simple to produce, and can run test concurrently which would save us time while finding errors and seeing which parts pass. Our test will be stored here: [src/test](src/test) and this would be where would test the database: [src/test/dataLayerTests.js](src/test/dataLayerTests.js).
+There are many different testing methods to use for our project that could have been utilized. AVA is a test runner that we discovered that would be useful to test with our Javascript files which can be run with `npm test`. It contains a concise API with detailed error output. These test are minimal and fast, simple to produce, and can run test concurrently which would save us time while finding errors and seeing which parts pass. Our tests will be stored here: [src/test](src/test) and this would be where we would test the database: [src/test/dataLayerTests.js](src/test/dataLayerTests.js).
 
 Example of an ava test:
 
