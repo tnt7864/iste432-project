@@ -304,7 +304,7 @@ Several methods were taken into consideration to improve performance. First, ind
 
 ## Testing
 
-There are many different testing methods to use for our project that could have been utilized. AVA is a test runner that we discovered that would be useful for to test with our Javascript files which uses npm command line inputs. It contains a concise API with detailed error output. These test are minimal and fast, simple to produce, and can run test concurrently which would save us time while finding errors and seeing which parts pass. Our test will be stored here: https://github.com/tnt7864/iste432-project/tree/master/src/test and this would be where would test the database: https://github.com/tnt7864/iste432-project/blob/master/src/test/util/db.js.
+There are many different testing methods to use for our project that could have been utilized. AVA is a test runner that we discovered that would be useful to test with our Javascript files which uses npm command line inputs. It contains a concise API with detailed error output. These test are minimal and fast, simple to produce, and can run test concurrently which would save us time while finding errors and seeing which parts pass. Our test will be stored here: https://github.com/tnt7864/iste432-project/tree/master/src/test and this would be where would test the database: https://github.com/tnt7864/iste432-project/blob/master/src/test/util/db.js.
 
 Example of an ava - npm test:
 
