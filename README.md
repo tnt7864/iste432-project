@@ -304,6 +304,18 @@ Several methods were taken into consideration to improve performance. First, ind
 
 ## Testing
 
+There are an abundance amount of testing methods to use for our project. AVA is a test runner that we discovered that would be useful for to test with our Javascript files. It contains a concise API with detailed error output. These test are minimal and fast, simple to produce, and can run test concurrently.
+
+Example of an ava - npm test:
+
+```js 
+test('insert into users', async t => {
+	const db = await createTestDb();
+	const res = await db.Users.create(testUserObj);
+	t.is(res, 1);
+});
+```
+
 ## Timeline
 
 | Milestones                                | Meeting Start Date/Time   | Meeting End Date/Time   | Due Date                  |
