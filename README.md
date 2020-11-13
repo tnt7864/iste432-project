@@ -1,5 +1,6 @@
-- [Running](#running)
-  - [Development](#development)
+- [Deployment](#deployment)
+  - [Packaging](#packaging)
+  - [Help Specifications](#help-specifications)
   - [Production](#production)
 - [Development Book](#development-book)
   - [Team Members and Roles](#team-members-and-roles)
@@ -37,6 +38,7 @@
 # Deployment
 
 - Make sure [Node.js](https://nodejs.org/) is installed
+- Clone the repository with `git clone https://github.com/tnt7864/iste432-project.git`
 - Install dependencies by running `npm install`
 
 ## Packaging
