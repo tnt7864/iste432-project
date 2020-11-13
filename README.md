@@ -56,8 +56,8 @@ Note: changing the server port from the default will break the proxy in the clie
 ## Help Specifications
 
 - If this was a full-blown application, it would provide users the ability to create an account where they can store their personal recipes.
-- It will alos allow a user to look up ingredients and recipes to use for their daily, weeky, and/or monthly meals.
-- It would create a faster and easier way to find recipes without useing a search engine that usually returns multiple results.
+- It will also allow a user to look up ingredients and recipes to use for their daily, weeky, and/or monthly meals.
+- It would create a faster and easier way to find recipes without using a search engine that usually returns multiple results.
 
 
 # Development Book
