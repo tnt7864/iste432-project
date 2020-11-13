@@ -34,15 +34,17 @@
   - [Testing](#testing)
   - [Timeline](#timeline)
 
-# Running
+# Deployment
 
 - Make sure [Node.js](https://nodejs.org/) is installed
 - Install dependencies by running `npm install`
 
-## Development
+## Packaging
 
 - Run the server as well as the client development server with `npm run dev`
 - A development server will start at [http://localhost:3000/](http://localhost:3000/)
+
+## Help Specifications
 
 Note: changing the server port from the default will break the proxy in the client's development server.
 
