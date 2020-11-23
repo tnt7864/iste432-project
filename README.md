@@ -45,9 +45,6 @@
 
 - Run the server as well as the client development server with `npm run dev`
 - A development server will start at [http://localhost:3000/](http://localhost:3000/)
-
-## Help Specifications
-
 Note: changing the server port from the default will break the proxy in the client's development server.
 
 ## Production
@@ -55,6 +52,13 @@ Note: changing the server port from the default will break the proxy in the clie
 - Compile frontend code with `npm run build`
 - Run the server with `npm start`
 - By default, a server is started at [http://localhost:8080/](http://localhost:8080/)
+
+## Help Specifications
+
+- If this was a full-blown application, it would provide users the ability to create an account where they can store their personal recipes.
+- It will also allow a user to look up ingredients and recipes to use for their daily, weeky, and/or monthly meals.
+- It would create a faster and easier way to find recipes without using a search engine that usually returns multiple results.
+
 
 # Development Book
 
