@@ -21,7 +21,10 @@ module.exports = (dl, tokens) => ({
 			});
 		},
 		
-		async post({ username, password, email, name }){
+		async post({ username, password, email, name }, req, res){
+			if(!password){
+				throw 400;
+			}
 			const hashed = await hash(password);
 			
 			const withUsername = await dl.Users.readWhere({ username });
@@ -36,12 +39,19 @@ module.exports = (dl, tokens) => ({
 				name
 			});
 			
-			const res = await dl.Users.readWhere({ username });
-			if(!res.length){
+			const r = await dl.Users.readWhere({ username });
+			if(!r.length){
 				throw 500;
 			}
 			
-			return res[0];
+			const token = newToken(tokens);
+			tokens[token] = {
+				username: data.username,
+				UserID: user.UserID
+			}
+			
+			res.cookie('token', token, { httpOnly: false });
+			return r[0];
 		},
 		
 		async put(id, data){
@@ -53,7 +63,7 @@ module.exports = (dl, tokens) => ({
 			if(!('verify' in data)){
 				throw 401;
 			}
-			if(!(await verify(data.verify, user.password))){
+			if(!(await verify(user.password, data.verify))){
 				throw 403;
 			}
 			
@@ -88,40 +98,47 @@ module.exports = (dl, tokens) => ({
 			throw 204; //no content
 		},
 		
-		async login(req, res){
-			const data = req.body || {};
-			if(!('username' in data) || !('password' in data)){
-				throw 400;
+		rest: {
+			"/login": {
+				method: "post",
+				async action(req, res){
+					const data = req.body || {};
+					if(!('username' in data) || !('password' in data)){
+						throw 400;
+					}
+					
+					const [user] = await dl.Users.readWhere({
+						username: data.username
+					});
+					if(!user){
+						throw 404;
+					}
+					
+					if(!(await verify(user.password, data.password))){
+						throw 401;
+					}
+					
+					const token = newToken(tokens);
+					tokens[token] = {
+						username: data.username,
+						UserID: user.UserID
+					}
+					
+					res.cookie('token', token, { httpOnly: false });
+					return { token }
+				},
+			},
+			"/logout": {
+				method: "get",
+				async action(req, res){
+					if(req.cookie.token && req.cookie.token in tokens){
+						delete tokens[req.cookie.token];
+					}
+					res.cookie('token', '', { httpOnly: false, maxAge: 0 })
+					
+					throw 204;
+				}
 			}
-			
-			const [user] = await dl.Users.read({
-				username: data.username
-			});
-			if(!user){
-				throw 404;
-			}
-			
-			if(!(await verify(data.password, user.password))){
-				throw 401;
-			}
-			
-			const token = newToken(tokens);
-			tokens[token] = {
-				username: data.username,
-				UserID: user.UserID
-			}
-			
-			res.cookie('token', token, { httpOnly: true });
-			return { token }
-		},
-		
-		async logout(req, res){
-			if(req.cookie.token && req.cookie.token in tokens){
-				delete tokens[req.cookie.token];
-			}
-			res.cookie('token', '', { httpOnly: true, maxAge: 0 })
-			
-			throw 204;
 		}
 	}),
 	auth: (req, res, next) => {
