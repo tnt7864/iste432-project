@@ -43,10 +43,11 @@ module.exports = (dl, tokens) => ({
 			if(!r.length){
 				throw 500;
 			}
+			const user = r[0];
 			
 			const token = newToken(tokens);
 			tokens[token] = {
-				username: data.username,
+				username: username,
 				UserID: user.UserID
 			}
 			
@@ -90,7 +91,7 @@ module.exports = (dl, tokens) => ({
 			if(!('verify' in data)){
 				throw 401; //unauthorized
 			}
-			if(!(await verify(data.verify, user.password))){
+			if(!(await verify(user.password, data.verify))){
 				throw 403; //forbidden
 			}
 			
@@ -131,8 +132,8 @@ module.exports = (dl, tokens) => ({
 			"/logout": {
 				method: "get",
 				async action(req, res){
-					if(req.cookie.token && req.cookie.token in tokens){
-						delete tokens[req.cookie.token];
+					if(req.cookies.token && req.cookies.token in tokens){
+						delete tokens[req.cookies.token];
 					}
 					res.cookie('token', '', { httpOnly: false, maxAge: 0 })
 					
@@ -142,11 +143,11 @@ module.exports = (dl, tokens) => ({
 		}
 	}),
 	auth: (req, res, next) => {
-		if(!req.cookie.token || !(req.cookie.token in tokens)){
+		if(!req.cookies.token || !(req.cookies.token in tokens)){
 			return res.status(401).send('Not authorized');
 		}
 		
-		req.userdata = tokens[req.cookie.token];
+		req.userdata = tokens[req.cookies.token];
 		next();
 	}
 })

@@ -41,7 +41,6 @@ module.exports.rest = ({ get, list, post, put, delete: deleteMethod, rest = {} }
 	router.delete("/:id", handleRoute((req, res) => deleteMethod(req.params.id, req, res)));
 	
 	for(let i in rest){
-		console.log("setting up " + rest[i].method + " request to " + i, rest[i].action)
 		router[rest[i].method](i, handleRoute(rest[i].action));
 	}
 	

@@ -4,11 +4,11 @@ import { Provider } from 'react-redux';
 import { store } from './redux';
 import ErrorDialog from './components/ErrorDialog';
 import { HashRouter } from 'react-router-dom';
-import Router from './routes';
 import { Theme } from './components/Theme';
 import { Header } from './components/Header';
 import { Container } from '@material-ui/core';
 import { Login } from './components/Login';
+import { Recipes } from './components/Recipes';
 
 const App = () => {
 	const [loggedIn, setLoggedIn] = useState(!!document.cookie.match(/(^|;)token=/));
@@ -19,7 +19,7 @@ const App = () => {
 				<HashRouter>
 					<Header login={!loggedIn} />
 					<Container maxWidth="lg">
-						{loggedIn ? <Router /> : <Login onLogin={() => setLoggedIn(true)} />}
+						{loggedIn ? <Recipes /> : <Login onLogin={() => setLoggedIn(true)} />}
 					</Container>
 				</HashRouter>
 				<ErrorDialog />

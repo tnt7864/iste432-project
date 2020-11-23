@@ -1,4 +1,4 @@
-import { Tabs, AppBar, IconButton, Toolbar, Typography, Zoom, Tab } from '@material-ui/core';
+import { AppBar, IconButton, Toolbar, Typography, Zoom } from '@material-ui/core';
 import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
@@ -16,8 +16,9 @@ const HeaderComponent = ({ login }) => {
 		})
 	}, [history]);
 	
-	let title = "page title";
-	if(login){
+	let title = "Recipes";
+	
+	if(login || location === "/login"){
 		title = "Log in";
 	}
 	
@@ -33,8 +34,6 @@ const HeaderComponent = ({ login }) => {
 				{title}
 			</Typography>
 		</Toolbar>
-		{/* <Tabs value={0} onChange={() => {}}>
-		</Tabs> */}
 	</AppBar>
 }
 
